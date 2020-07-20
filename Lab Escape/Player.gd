@@ -8,11 +8,7 @@ onready var sprite = $Sprite
 
 func _physics_process(delta: float) -> void:
 	handle_aiming()
-	if not is_aiming:
-		update_movement()
-		motion = move_and_slide(motion)
-		if regained_movement:
-			rotation = lerp_angle(rotation, motion.angle(), 0.3) 
+	handle_movement()
 
 func update_movement():
 	if Input.is_action_pressed("move_up") and not Input.is_action_pressed("move_down"):
@@ -38,8 +34,16 @@ func update_movement():
 		motion.x = motion.x / 1.13 # It's hardcoded and it looks terrible but it works, so, whatever ¯\_(ツ)_/¯
 		motion.y = motion.y / 1.13
 	elif Input.is_action_pressed("move_up") and Input.is_action_pressed("move_right") or Input.is_action_pressed("move_up") and Input.is_action_pressed("move_left"):
-		motion.x = motion.x / 1.13 # It's hardcoded and it looks terrible but it works, so, whatever ¯\_(ツ)_/¯
+		motion.x = motion.x / 1.13
 		motion.y = motion.y / 1.13
+
+func handle_movement():
+	if not is_aiming:
+		update_movement()
+		motion = move_and_slide(motion)
+		
+		if regained_movement:
+			rotation = lerp_angle(rotation, motion.angle(), 0.3) 
 
 func handle_aiming():
 	if Input.is_action_pressed("aim"):
