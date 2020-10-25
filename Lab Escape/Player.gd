@@ -30,6 +30,8 @@ func handle_movement():
 	if not is_aiming:
 		update_movement()
 		motion = move_and_slide(motion)
+		if (motion.x == 0 and motion.y == 0):
+			regained_movement = false
 		
 		if regained_movement:
 			rotation = lerp_angle(rotation, motion.angle(), 0.3) 
