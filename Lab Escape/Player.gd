@@ -20,11 +20,11 @@ func update_movement():
 	if inputVector.x != 0 or inputVector.y != 0:
 		curr_speed += SPEED
 		regained_movement = true
+		motion = inputVector.normalized() * acceleration.interpolate(curr_speed / MAX_SPEED) * MAX_SPEED
 	else:
-		curr_speed = lerp(curr_speed, 0, INTERPOLATE)
+		motion.x = lerp(motion.x, 0, INTERPOLATE)
+		motion.y = lerp(motion.y, 0, INTERPOLATE)
 		regained_movement = false
-	
-	motion = inputVector.normalized() * acceleration.interpolate(curr_speed / MAX_SPEED) * MAX_SPEED
 
 func handle_movement():
 	if not is_aiming:
