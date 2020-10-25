@@ -3,6 +3,7 @@ extends "res://characters/TemplateCharacter.gd"
 var motion = Vector2()
 var is_aiming = false
 var regained_movement = true
+var curr_speed = 0
 
 onready var sprite = $Sprite
 
@@ -11,31 +12,19 @@ func _physics_process(delta: float) -> void:
 	handle_movement()
 
 func update_movement():
-	if Input.is_action_pressed("move_up") and not Input.is_action_pressed("move_down"):
-		motion.y = clamp(motion.y - SPEED, -MAX_SPEED, 0)
-		regained_movement = true
-	elif Input.is_action_pressed("move_down") and not Input.is_action_pressed("move_up"):
-		motion.y = clamp(motion.y + SPEED, 0, MAX_SPEED)
+	var inputVector = Vector2.ZERO
+	
+	inputVector.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	inputVector.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+	
+	if inputVector.x != 0 or inputVector.y != 0:
+		curr_speed += SPEED
 		regained_movement = true
 	else:
-		motion.y = lerp(motion.y, 0, INTERPOLATE)
+		curr_speed = lerp(curr_speed, 0, INTERPOLATE)
+		regained_movement = false
 	
-	if Input.is_action_pressed("move_left") and not Input.is_action_pressed("move_right"):
-		motion.x = clamp(motion.x - SPEED, -MAX_SPEED, 0)
-		regained_movement = true
-	elif Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left"):
-		motion.x = clamp(motion.x + SPEED, 0, MAX_SPEED)
-		regained_movement = true
-	else:
-		motion.x = lerp(motion.x, 0, INTERPOLATE)
-	
-	# Reduces diagonal speed
-	if Input.is_action_pressed("move_down") and Input.is_action_pressed("move_right") or Input.is_action_pressed("move_down") and Input.is_action_pressed("move_left"):
-		motion.x = motion.x / 1.13 # It's hardcoded and it looks terrible but it works, so, whatever ¯\_(ツ)_/¯
-		motion.y = motion.y / 1.13
-	elif Input.is_action_pressed("move_up") and Input.is_action_pressed("move_right") or Input.is_action_pressed("move_up") and Input.is_action_pressed("move_left"):
-		motion.x = motion.x / 1.13
-		motion.y = motion.y / 1.13
+	motion = inputVector.normalized() * acceleration.interpolate(curr_speed / MAX_SPEED) * MAX_SPEED
 
 func handle_movement():
 	if not is_aiming:
