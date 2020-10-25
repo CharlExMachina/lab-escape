@@ -14,9 +14,10 @@ texture = ExtResource( 2 )
 position = Vector2( 0.0834274, -5.7565 )
 
 [node name="Sprite" type="Sprite" parent="CameraBody"]
-position = Vector2( -0.0236206, -7.11436 )
+position = Vector2( 0, -0.264 )
 scale = Vector2( 0.3, 0.4 )
 texture = ExtResource( 1 )
+offset = Vector2( 0, -15.393 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBody"]
 shape = SubResource( 1 )
