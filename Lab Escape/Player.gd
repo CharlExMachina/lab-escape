@@ -7,7 +7,7 @@ var curr_speed = 0
 
 onready var sprite = $Sprite
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	handle_aiming()
 	handle_movement()
 
