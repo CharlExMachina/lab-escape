@@ -22,7 +22,7 @@ func _process(_delta):
 func player_in_fov():
 	var facing_direction = get_facing_direction()
 	direction_to_player = (player.position - global_position).normalized()
-	
+
 	if abs(get_angle_to_player(facing_direction)) < deg2rad(FOV_TOLERANCE):
 		return true
 	else:
@@ -30,14 +30,14 @@ func player_in_fov():
 
 func player_in_los():
 	var space = get_world_2d().direct_space_state
-	var los_obstacle = space.intersect_ray(global_position, player.global_position, 
+	var los_obstacle = space.intersect_ray(global_position, player.global_position,
 			[self], collision_mask)
-	
+
 	if not los_obstacle:
 		return false
-	
+
 	var distance_to_player = player.global_position.distance_to(global_position)
-	
+
 	if los_obstacle.collider == player && distance_to_player < vision_range:
 		return true
 	else:

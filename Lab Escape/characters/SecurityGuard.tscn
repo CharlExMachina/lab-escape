@@ -5,10 +5,14 @@
 [ext_resource path="res://characters/EyesLight.tscn" type="PackedScene" id=3]
 [ext_resource path="res://characters/SecurityGuard.gd" type="Script" id=4]
 
-[node name="TemplateCharacter" instance=ExtResource( 1 )]
+[node name="SecurityGuard" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
 
-[node name="LampLight" parent="." index="3" instance=ExtResource( 3 )]
+[node name="FovLight" parent="." index="3" instance=ExtResource( 3 )]
+position = Vector2( 23.6419, -0.394936 )
+energy = 1.08
+[connection signal="player_on_fov" from="." to="." method="_on_SecurityGuard_player_on_fov"]
+[connection signal="player_out_of_fov" from="." to="." method="_on_SecurityGuard_player_out_of_fov"]

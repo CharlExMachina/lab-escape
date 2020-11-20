@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://tiles/tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://characters/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://characters/SecurityCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://characters/SecurityGuard.tscn" type="PackedScene" id=4]
 
 [node name="TemplateLevel" type="Node2D"]
 
@@ -29,3 +30,6 @@ current = true
 position = Vector2( -242.365, -1181.78 )
 
 [node name="Guards" type="Node" parent="."]
+
+[node name="SecurityGuard" parent="Guards" instance=ExtResource( 4 )]
+position = Vector2( -237.824, -806.898 )

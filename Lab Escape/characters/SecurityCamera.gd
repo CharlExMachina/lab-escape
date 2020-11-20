@@ -34,7 +34,7 @@ func _on_CameraBody_player_out_of_fov() -> void:
 		is_player_detected = false
 
 func _on_RegainPatrolTimer_timeout() -> void:
-	$CameraBody/CameraTween.interpolate_property($CameraBody, "rotation", 
+	$CameraBody/CameraTween.interpolate_property($CameraBody, "rotation",
 			$CameraBody.rotation, 0, 1.8, Tween.TRANS_LINEAR)
 	$CameraBody/CameraTween.start()
 	$CameraBody/FovLight.color = YELLOW
@@ -52,7 +52,7 @@ func stop_tween_and_timers() -> void:
 
 func follow_player() -> void:
 	var facing_direction : Vector2 = get_camera_body_direction()
-	$CameraBody.rotate(-get_angle_to_player(facing_direction) * get_process_delta_time() 
+	$CameraBody.rotate(-get_angle_to_player(facing_direction) * get_process_delta_time()
 			* following_speed)
 
 func get_camera_body_direction() -> Vector2:
