@@ -12,7 +12,12 @@ script = ExtResource( 4 )
 texture = ExtResource( 2 )
 
 [node name="FovLight" parent="." index="3" instance=ExtResource( 3 )]
-position = Vector2( 23.6419, -0.394936 )
+position = Vector2( 18.1715, -0.041386 )
 energy = 1.08
+
+[node name="Timer" type="Timer" parent="." index="4"]
+wait_time = 5.0
+one_shot = true
 [connection signal="player_on_fov" from="." to="." method="_on_SecurityGuard_player_on_fov"]
 [connection signal="player_out_of_fov" from="." to="." method="_on_SecurityGuard_player_out_of_fov"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
