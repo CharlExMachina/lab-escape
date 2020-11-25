@@ -17,6 +17,9 @@ tile_data = PoolIntArray( -1245195, 0, 0, -1245194, 0, 2, -1245193, 0, 2, -12451
 [node name="Furniture" type="TileMap" parent="Navigation2D"]
 format = 1
 
+[node name="Decals" type="TileMap" parent="Navigation2D"]
+format = 1
+
 [node name="Destinations" type="Node" parent="Navigation2D"]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
