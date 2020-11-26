@@ -824,3 +824,4 @@ position = Vector2( 714.433, -541.099 )
 
 [node name="SecurityGuard" parent="Guards" index="0" instance=ExtResource( 2 )]
 position = Vector2( 898.568, -539.896 )
+[connection signal="toggle_vision_mode" from="Player" to="VisionMode" method="toggle_vision_mode"]

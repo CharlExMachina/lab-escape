@@ -1,10 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://characters/TemplateCharacter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://graphics/characters/Robot 1/robot1_stand.png" type="Texture" id=3]
-[ext_resource path="res://characters/EyesLight.tscn" type="PackedScene" id=4]
-[ext_resource path="res://characters/EyesLight.gd" type="Script" id=5]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0.1 ), 0.0, 0.211628, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
@@ -17,6 +15,3 @@ SPEED = 30.0
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
-
-[node name="EyesLight" parent="." index="3" instance=ExtResource( 4 )]
-script = ExtResource( 5 )

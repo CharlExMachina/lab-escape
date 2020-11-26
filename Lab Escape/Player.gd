@@ -1,5 +1,7 @@
 extends "res://characters/TemplateCharacter.gd"
 
+signal toggle_vision_mode
+
 var motion = Vector2()
 var is_aiming = false
 var regained_movement = true
@@ -10,13 +12,14 @@ onready var sprite = $Sprite
 func _physics_process(_delta: float) -> void:
 	handle_aiming()
 	handle_movement()
+	handle_vision_mode_toggle()
 
 func update_movement():
 	var inputVector = Vector2.ZERO
-	
+
 	inputVector.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	inputVector.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	
+
 	if inputVector.x != 0 or inputVector.y != 0:
 		curr_speed += SPEED
 		regained_movement = true
@@ -32,9 +35,9 @@ func handle_movement():
 		motion = move_and_slide(motion)
 		if (motion.x == 0 and motion.y == 0):
 			regained_movement = false
-		
+
 		if regained_movement:
-			rotation = lerp_angle(rotation, motion.angle(), 0.3) 
+			rotation = lerp_angle(rotation, motion.angle(), 0.3)
 
 func handle_aiming():
 	if Input.is_action_pressed("aim"):
@@ -47,3 +50,7 @@ func handle_aiming():
 		rotation = lerp_angle(rotation, mouse_difference.angle(), 0.4)
 	if Input.is_action_just_released("aim"):
 		is_aiming = false
+
+func handle_vision_mode_toggle() -> void:
+	if Input.is_action_just_released("toggle_vision_mode"):
+		emit_signal("toggle_vision_mode")
