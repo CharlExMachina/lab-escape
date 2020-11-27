@@ -6,6 +6,8 @@
 [ext_resource path="res://characters/SecurityGuard.gd" type="Script" id=4]
 
 [node name="SecurityGuard" instance=ExtResource( 1 )]
+collision_layer = 4
+collision_mask = 15
 script = ExtResource( 4 )
 
 [node name="Sprite" parent="." index="0"]

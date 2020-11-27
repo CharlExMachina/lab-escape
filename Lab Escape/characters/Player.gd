@@ -1,6 +1,7 @@
 extends "res://characters/TemplateCharacter.gd"
 
 signal toggle_vision_mode
+signal open_door
 
 var motion = Vector2()
 var is_aiming = false
@@ -13,6 +14,7 @@ func _physics_process(_delta: float) -> void:
 	handle_aiming()
 	handle_movement()
 	handle_vision_mode_toggle()
+	handle_door_opening()
 
 func update_movement():
 	var inputVector = Vector2.ZERO
@@ -54,3 +56,10 @@ func handle_aiming():
 func handle_vision_mode_toggle() -> void:
 	if Input.is_action_just_released("toggle_vision_mode"):
 		emit_signal("toggle_vision_mode")
+
+func handle_door_opening() -> void:
+	if Input.is_action_just_released("perform_action") and not Input.is_action_pressed("aim"):
+		var door = $Sprite/RayCast2D.get_collider()
+
+		if door != null:
+			emit_signal("open_door")
