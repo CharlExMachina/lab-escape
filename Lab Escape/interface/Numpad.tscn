@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://graphics/interface/glassPanel.png" type="Texture" id=1]
+[ext_resource path="res://graphics/interface/metalPanel.png" type="Texture" id=2]
+[ext_resource path="res://graphics/interface/fonts/kenvector_future.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://interface/button_normal.tres" type="StyleBox" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+outline_color = Color( 0.137255, 0.137255, 0.137255, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = null
+Button/styles/normal = ExtResource( 4 )
+Button/styles/pressed = null
+
+[node name="Numpad" type="Popup"]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+theme = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="NinePatchRect" parent="."]
+margin_right = 300.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 300, 400 )
+texture = ExtResource( 2 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 15.0
+margin_top = 15.0
+margin_right = -15.0
+margin_bottom = -15.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DisplayContainer" type="CenterContainer" parent="Background/VBoxContainer"]
+margin_right = 270.0
+margin_bottom = 100.0
+
+[node name="Display" type="NinePatchRect" parent="Background/VBoxContainer/DisplayContainer"]
+margin_left = 9.0
+margin_right = 259.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 250, 100 )
+texture = ExtResource( 1 )
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="Label" type="Label" parent="Background/VBoxContainer/DisplayContainer"]
+margin_left = 25.0
+margin_top = 36.0
+margin_right = 245.0
+margin_bottom = 63.0
+custom_colors/font_color = Color( 0.180392, 0.180392, 0.180392, 1 )
+text = "Hello there!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonsContainer" type="CenterContainer" parent="Background/VBoxContainer"]
+margin_top = 104.0
+margin_right = 270.0
+margin_bottom = 134.0
+
+[node name="Num1" type="Button" parent="Background/VBoxContainer/ButtonsContainer"]
+margin_left = 120.0
+margin_right = 150.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+custom_colors/font_color = Color( 0.235294, 0.235294, 0.235294, 1 )
+text = "1"
