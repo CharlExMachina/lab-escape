@@ -1,8 +1,9 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=2]
 
-[ext_resource path="res://graphics/interface/glassPanel_projection.png" type="Texture" id=1]
+[ext_resource path="res://graphics/interface/metalPanel_blue.png" type="Texture" id=1]
 
 [resource]
 content_margin_left = 4.0
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 100, 100 )
+margin_top = 6.0

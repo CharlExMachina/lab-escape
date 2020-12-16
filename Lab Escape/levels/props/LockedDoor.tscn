@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://levels/props/Door.tscn" type="PackedScene" id=1]
+[ext_resource path="res://graphics/level/toggle_door.png" type="Texture" id=2]
+[ext_resource path="res://interface/Numpad.tscn" type="PackedScene" id=3]
+[ext_resource path="res://levels/props/LockedDoor.gd" type="Script" id=4]
+[ext_resource path="res://interface/ui_theme.tres" type="Theme" id=5]
+
+[node name="LockedDoor" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
+
+[node name="DoorSprite" parent="." index="1"]
+texture = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="2"]
+
+[node name="Numpad" parent="CanvasLayer" index="0" instance=ExtResource( 3 )]
+margin_right = 301.0
+margin_bottom = 402.0
+
+[node name="OpenTimer" type="Timer" parent="." index="6"]
+wait_time = 0.626
+one_shot = true
+
+[node name="Node2D" type="Node2D" parent="." index="7"]
+z_index = 6
+
+[node name="GroupName" type="Label" parent="Node2D" index="0"]
+margin_left = -124.459
+margin_top = -13.2313
+margin_right = -44.4587
+margin_bottom = 13.7687
+theme = ExtResource( 5 )
+text = "TEST"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="combination_correct" from="CanvasLayer/Numpad" to="." method="_on_Numpad_combination_correct"]
+[connection signal="popup_hide" from="CanvasLayer/Numpad" to="." method="_on_Numpad_popup_hide"]
+[connection signal="timeout" from="OpenTimer" to="." method="_on_OpenTimer_timeout"]

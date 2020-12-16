@@ -19,6 +19,10 @@ config/name="Heist Meisters"
 run/main_scene="res://levels/Level 1.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+CombinationGenerator="*res://global/doors/CombinationGenerator.gd"
+
 [input]
 
 move_up={
@@ -67,6 +71,7 @@ perform_action={
 2d_physics/layer_2="Tilemap"
 2d_physics/layer_3="NPC"
 2d_physics/layer_4="Door"
+2d_physics/layer_5="Computer"
 
 [rendering]
 

@@ -2,19 +2,24 @@ extends "res://characters/TemplateCharacter.gd"
 
 signal toggle_vision_mode
 signal open_door
+signal use_computer
 
 var motion = Vector2()
 var is_aiming = false
 var regained_movement = true
 var curr_speed = 0
+var can_perform_actions = true
 
 onready var sprite = $Sprite
 
 func _physics_process(_delta: float) -> void:
-	handle_aiming()
+	if can_perform_actions:
+		handle_aiming()
+		handle_door_opening()
+		handle_use_computer()
+
 	handle_movement()
 	handle_vision_mode_toggle()
-	handle_door_opening()
 
 func update_movement():
 	var inputVector = Vector2.ZERO
@@ -47,7 +52,7 @@ func handle_aiming():
 			is_aiming = true
 			regained_movement = false
 		motion = Vector2(0, 0)
-		#look_at(get_global_mouse_position())
+
 		var mouse_difference = get_global_mouse_position() - position
 		rotation = lerp_angle(rotation, mouse_difference.angle(), 0.4)
 	if Input.is_action_just_released("aim"):
@@ -58,8 +63,17 @@ func handle_vision_mode_toggle() -> void:
 		emit_signal("toggle_vision_mode")
 
 func handle_door_opening() -> void:
-	if Input.is_action_just_released("perform_action") and not Input.is_action_pressed("aim"):
+	if Input.is_action_just_pressed("perform_action") and not Input.is_action_pressed("aim"):
 		var door = $Sprite/RayCast2D.get_collider()
 
 		if door != null:
-			emit_signal("open_door")
+				emit_signal("open_door")
+
+func handle_use_computer() -> void:
+	if Input.is_action_just_pressed("perform_action") and not Input.is_action_pressed("aim"):
+		var computer = $Sprite/RayCast2D.get_collider()
+		emit_signal("use_computer")
+
+func _on_try_unlock(can_perform) -> void:
+	can_perform_actions = can_perform
+	$ActionTimer.start()

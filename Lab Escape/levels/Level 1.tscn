@@ -1,9 +1,11 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://levels/TemplateLevel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://characters/SecurityGuard.tscn" type="PackedScene" id=2]
 [ext_resource path="res://graphics/level/spritesheet_tiles.png" type="Texture" id=3]
 [ext_resource path="res://levels/props/Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://levels/props/LockedDoor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://levels/props/Computer.tscn" type="PackedScene" id=6]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 12, 12, 12, 12, 4, 20, 4, 52, 60, 52, 60, 20, 52, 12 )
@@ -821,7 +823,7 @@ position = Vector2( 2032.32, 431.578 )
 position = Vector2( 2032.32, -1105.69 )
 
 [node name="Player" parent="." index="2"]
-position = Vector2( 1947.63, -548.17 )
+position = Vector2( 951.843, -188.554 )
 
 [node name="SecurityGuard" parent="Guards" index="0" instance=ExtResource( 2 )]
 position = Vector2( 2038.31, -52.6646 )
@@ -831,4 +833,10 @@ position = Vector2( 2048.03, -438.916 )
 
 [node name="Door2" parent="Doors" index="1" instance=ExtResource( 4 )]
 position = Vector2( 2048.03, 310.618 )
-[connection signal="toggle_vision_mode" from="Player" to="VisionMode" method="toggle_vision_mode"]
+
+[node name="LockedDoor" parent="LockedDoors" index="0" instance=ExtResource( 5 )]
+position = Vector2( 959, 111 )
+
+[node name="Computer" parent="." index="7" instance=ExtResource( 6 )]
+position = Vector2( 907.092, -104.967 )
+[connection signal="combination_generated" from="Computer" to="LockedDoors/LockedDoor" method="_on_Computer_combination_generated"]

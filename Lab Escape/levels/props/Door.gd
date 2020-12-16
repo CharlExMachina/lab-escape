@@ -23,7 +23,7 @@ func play_door_sound(anim_name: String) -> void:
 func _on_Door_body_entered(body: Node) -> void:
 	$CloseTimer.stop()
 
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and not get_overlapping_bodies().size() > 1:
 			body.connect("open_door", self, "open")
 	else:
 		open()
