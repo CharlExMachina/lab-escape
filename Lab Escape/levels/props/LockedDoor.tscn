@@ -25,7 +25,10 @@ one_shot = true
 [node name="Node2D" type="Node2D" parent="." index="7"]
 z_index = 6
 
-[node name="GroupName" type="Label" parent="Node2D" index="0"]
+[node name="GroupName" type="Label" parent="Node2D" index="0" groups=[
+"labels",
+]]
+visible = false
 margin_left = -124.459
 margin_top = -13.2313
 margin_right = -44.4587

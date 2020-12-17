@@ -17,8 +17,12 @@ func toggle_vision_mode() -> void:
 		if (is_vision_mode_enabled):
 			color = NIGHT_VISION
 			$NightVisionAudio.play()
+			get_tree().set_group("labels", "visible", true)
+			get_tree().call_group("lights", "hide")
 		else:
 			color = DARK_COLOR
+			get_tree().set_group("labels", "visible", false)
+			get_tree().call_group("lights", "show")
 
 		$NightVisionTimer.start()
 

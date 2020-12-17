@@ -29,7 +29,9 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Light2D" type="Light2D" parent="Sprite"]
+[node name="Light2D" type="Light2D" parent="Sprite" groups=[
+"lights",
+]]
 position = Vector2( 0.0117798, -22.5608 )
 rotation = -1.5708
 scale = Vector2( 0.03, 0.28 )
@@ -47,7 +49,10 @@ layer = 3
 [node name="Control" type="Node2D" parent="."]
 z_index = 6
 
-[node name="GroupName" type="Label" parent="Control"]
+[node name="GroupName" type="Label" parent="Control" groups=[
+"labels",
+]]
+visible = false
 margin_left = -74.5326
 margin_top = -14.6104
 margin_right = 5.46737
