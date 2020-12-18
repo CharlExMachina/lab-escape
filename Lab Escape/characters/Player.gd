@@ -4,13 +4,16 @@ signal toggle_vision_mode
 signal open_door
 signal use_computer
 
-var motion = Vector2()
-var is_aiming = false
-var regained_movement = true
-var curr_speed = 0
-var can_perform_actions = true
+export var box_hide_speed_multiplier: float = 0.5
 
-onready var sprite = $Sprite
+onready var sprite: Sprite = $Sprite
+
+var motion: Vector2 = Vector2()
+var is_aiming: bool = false
+var regained_movement: bool = true
+var can_perform_actions: bool = true
+var is_hiding_in_box: bool = false
+var curr_speed: float = 0
 
 func _physics_process(_delta: float) -> void:
 	if can_perform_actions:
@@ -18,8 +21,27 @@ func _physics_process(_delta: float) -> void:
 		handle_door_opening()
 		handle_use_computer()
 
+	handle_hiding_in_box()
 	handle_movement()
 	handle_vision_mode_toggle()
+
+func handle_hiding_in_box() -> void:
+	if Input.is_action_pressed("toggle_box"):
+		is_hiding_in_box = true
+
+		if not $BoxSprite.visible and $BoxCollisionShape.disabled:
+			$BoxSprite.visible = true
+			$Sprite.visible = false
+			$BoxCollisionShape.disabled = false
+			$CollisionShape2D.disabled = true
+	else:
+		is_hiding_in_box = false
+
+		if not $Sprite.visible and $CollisionShape2D.disabled:
+			$BoxSprite.visible = false
+			$Sprite.visible = true
+			$BoxCollisionShape.disabled = true
+			$CollisionShape2D.disabled = false
 
 func update_movement():
 	var inputVector = Vector2.ZERO
@@ -30,7 +52,11 @@ func update_movement():
 	if inputVector.x != 0 or inputVector.y != 0:
 		curr_speed += SPEED
 		regained_movement = true
-		motion = inputVector.normalized() * acceleration.interpolate(curr_speed / MAX_SPEED) * MAX_SPEED
+
+		if is_hiding_in_box:
+			motion = inputVector.normalized() * acceleration.interpolate(curr_speed / (MAX_SPEED)) * MAX_SPEED * box_hide_speed_multiplier
+		else:
+			motion = inputVector.normalized() * acceleration.interpolate(curr_speed / MAX_SPEED) * MAX_SPEED
 	else:
 		motion.x = lerp(motion.x, 0, INTERPOLATE)
 		motion.y = lerp(motion.y, 0, INTERPOLATE)

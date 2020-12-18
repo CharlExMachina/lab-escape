@@ -48,7 +48,8 @@ func update_path() -> void:
 		path.remove(0)
 
 func _on_SecurityGuard_player_on_fov() -> void:
-	$FovLight.color = Color(0.5, 0, 0)
+	$FovLight.color = Color(0.5, 0, 0) # red
+	get_tree().call_group("suspicion", "player_seen")
 
 func _on_SecurityGuard_player_out_of_fov() -> void:
 	$FovLight.color = Color(1, 1, 1)
