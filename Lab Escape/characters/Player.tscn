@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://characters/Player.gd" type="Script" id=1]
 [ext_resource path="res://characters/TemplateCharacter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://graphics/characters/Robot 1/robot1_stand.png" type="Texture" id=3]
 [ext_resource path="res://graphics/props/hiding_box.png" type="Texture" id=4]
+[ext_resource path="res://graphics/characters/Robot 1/robot1_silencer.png" type="Texture" id=5]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0.1 ), 0.0, 0.211628, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
@@ -37,3 +38,17 @@ shape = SubResource( 2 )
 disabled = true
 
 [node name="ActionTimer" type="Timer" parent="." index="5"]
+
+[node name="PlayerHighlight" type="Light2D" parent="." index="6"]
+texture = ExtResource( 3 )
+energy = 0.26
+
+[node name="BoxHighlight" type="Light2D" parent="." index="7"]
+visible = false
+texture = ExtResource( 4 )
+energy = 0.26
+
+[node name="PlayerAimHightlight" type="Light2D" parent="." index="8"]
+visible = false
+texture = ExtResource( 5 )
+energy = 0.26

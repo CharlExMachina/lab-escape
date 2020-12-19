@@ -4,9 +4,12 @@ signal toggle_vision_mode
 signal open_door
 signal use_computer
 
-export var box_hide_speed_multiplier: float = 0.5
+export var box_speed_multiplier: float = 0.5
 
 onready var sprite: Sprite = $Sprite
+
+const normal_sprite = preload("res://graphics/characters/Robot 1/robot1_stand.png")
+const aiming_sprite = preload("res://graphics/characters/Robot 1/robot1_silencer.png")
 
 var motion: Vector2 = Vector2()
 var is_aiming: bool = false
@@ -26,7 +29,7 @@ func _physics_process(_delta: float) -> void:
 	handle_vision_mode_toggle()
 
 func handle_hiding_in_box() -> void:
-	if Input.is_action_pressed("toggle_box"):
+	if Input.is_action_pressed("toggle_box") and not is_aiming:
 		is_hiding_in_box = true
 
 		if not $BoxSprite.visible and $BoxCollisionShape.disabled:
@@ -34,6 +37,9 @@ func handle_hiding_in_box() -> void:
 			$Sprite.visible = false
 			$BoxCollisionShape.disabled = false
 			$CollisionShape2D.disabled = true
+			$PlayerHighlight.visible = false
+			$BoxHighlight.visible = true
+			$LightOccluder2D.occluder = load("res://characters/box_occluder.tres")
 	else:
 		is_hiding_in_box = false
 
@@ -42,6 +48,9 @@ func handle_hiding_in_box() -> void:
 			$Sprite.visible = true
 			$BoxCollisionShape.disabled = true
 			$CollisionShape2D.disabled = false
+			$PlayerHighlight.visible = true
+			$BoxHighlight.visible = false
+			$LightOccluder2D.occluder = load("res://characters/humanoid_occluder.tres")
 
 func update_movement():
 	var inputVector = Vector2.ZERO
@@ -54,7 +63,7 @@ func update_movement():
 		regained_movement = true
 
 		if is_hiding_in_box:
-			motion = inputVector.normalized() * acceleration.interpolate(curr_speed / (MAX_SPEED)) * MAX_SPEED * box_hide_speed_multiplier
+			motion = inputVector.normalized() * acceleration.interpolate(curr_speed / (MAX_SPEED)) * MAX_SPEED * box_speed_multiplier
 		else:
 			motion = inputVector.normalized() * acceleration.interpolate(curr_speed / MAX_SPEED) * MAX_SPEED
 	else:
@@ -73,16 +82,23 @@ func handle_movement():
 			rotation = lerp_angle(rotation, motion.angle(), 0.3)
 
 func handle_aiming():
-	if Input.is_action_pressed("aim"):
-		if not is_aiming:
-			is_aiming = true
-			regained_movement = false
-		motion = Vector2(0, 0)
+	if not is_hiding_in_box:
+		if Input.is_action_pressed("aim"):
+			if not is_aiming:
+				is_aiming = true
+				$Sprite.texture = aiming_sprite
+				$PlayerAimHightlight.visible = true
+				$PlayerHighlight.visible = false
+				regained_movement = false
+			motion = Vector2(0, 0)
 
-		var mouse_difference = get_global_mouse_position() - position
-		rotation = lerp_angle(rotation, mouse_difference.angle(), 0.4)
-	if Input.is_action_just_released("aim"):
-		is_aiming = false
+			var mouse_difference = get_global_mouse_position() - position
+			rotation = lerp_angle(rotation, mouse_difference.angle(), 0.4)
+		if Input.is_action_just_released("aim"):
+			is_aiming = false
+			$Sprite.texture = normal_sprite
+			$PlayerAimHightlight.visible = false
+			$PlayerHighlight.visible = true
 
 func handle_vision_mode_toggle() -> void:
 	if Input.is_action_just_released("toggle_vision_mode"):
