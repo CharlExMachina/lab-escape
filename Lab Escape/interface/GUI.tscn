@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://graphics/interface/glassPanel_cornerTL.png" type="Texture" id=1]
 [ext_resource path="res://interface/ui_theme.tres" type="Theme" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://graphics/interface/bars_pack/orange/meter_bar_holder_left_edge_orange.png" type="Texture" id=7]
 [ext_resource path="res://graphics/interface/bars_pack/orange/meter_bar_holder_right_edge_orange.png" type="Texture" id=8]
 [ext_resource path="res://interface/SuspicionMeter.gd" type="Script" id=9]
+[ext_resource path="res://graphics/interface/glassPanel_cornerBR.png" type="Texture" id=10]
+[ext_resource path="res://interface/ItemList.gd" type="Script" id=12]
 
 [node name="GUI" type="CanvasLayer"]
 
@@ -21,7 +23,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Control"]
+[node name="SuspicionRegion" type="NinePatchRect" parent="Control"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -40,7 +42,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SuspicionBar" type="VBoxContainer" parent="Control/NinePatchRect"]
+[node name="SuspicionBar" type="VBoxContainer" parent="Control/SuspicionRegion"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 35.0
@@ -50,13 +52,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SuspicionLabel" type="Label" parent="Control/NinePatchRect/SuspicionBar"]
+[node name="SuspicionLabel" type="Label" parent="Control/SuspicionRegion/SuspicionBar"]
 margin_top = 14.0
 margin_right = 187.0
 margin_bottom = 41.0
 text = "Suspicion"
 
-[node name="SuspicionMeter" type="TextureProgress" parent="Control/NinePatchRect/SuspicionBar" groups=[
+[node name="SuspicionMeter" type="TextureProgress" parent="Control/SuspicionRegion/SuspicionBar" groups=[
 "suspicion",
 ]]
 margin_top = 45.0
@@ -75,7 +77,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BarEnd" type="TextureRect" parent="Control/NinePatchRect/SuspicionBar/SuspicionMeter"]
+[node name="BarEnd" type="TextureRect" parent="Control/SuspicionRegion/SuspicionBar/SuspicionMeter"]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -87,7 +89,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Edge" type="TextureRect" parent="Control/NinePatchRect/SuspicionBar/SuspicionMeter/BarEnd"]
+[node name="Edge" type="TextureRect" parent="Control/SuspicionRegion/SuspicionBar/SuspicionMeter/BarEnd"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 5 )
@@ -96,7 +98,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BarStart" type="TextureRect" parent="Control/NinePatchRect/SuspicionBar/SuspicionMeter"]
+[node name="BarStart" type="TextureRect" parent="Control/SuspicionRegion/SuspicionBar/SuspicionMeter"]
 anchor_bottom = 1.0
 margin_left = -23.3777
 margin_right = 0.622253
@@ -107,8 +109,49 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Edge" type="TextureRect" parent="Control/NinePatchRect/SuspicionBar/SuspicionMeter/BarStart"]
+[node name="Edge" type="TextureRect" parent="Control/SuspicionRegion/SuspicionBar/SuspicionMeter/BarStart"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 6 )
 expand = true
+
+[node name="ItemsRegion" type="NinePatchRect" parent="Control"]
+margin_left = 5.35144
+margin_top = 4.75682
+margin_right = 285.351
+margin_bottom = 124.757
+rect_min_size = Vector2( 280, 120 )
+texture = ExtResource( 10 )
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ItemsRegion"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 9.0
+margin_top = 9.0
+margin_right = -9.0
+margin_bottom = -9.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemsLabel" type="Label" parent="Control/ItemsRegion/VBoxContainer"]
+margin_right = 262.0
+margin_bottom = 27.0
+text = "Items"
+
+[node name="ItemList" type="ItemList" parent="Control/ItemsRegion/VBoxContainer" groups=[
+"ItemDisplay",
+]]
+margin_top = 31.0
+margin_right = 262.0
+margin_bottom = 40.0
+auto_height = true
+icon_scale = 0.3
+script = ExtResource( 12 )

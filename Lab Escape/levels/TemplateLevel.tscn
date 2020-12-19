@@ -42,5 +42,9 @@ current = true
 
 [node name="LockedDoors" type="Node" parent="."]
 
+[node name="Documents" type="Node" parent="."]
+
+[node name="AccessCards" type="Node" parent="."]
+
 [node name="GUI" parent="." instance=ExtResource( 4 )]
 [connection signal="toggle_vision_mode" from="Player" to="VisionMode" method="toggle_vision_mode"]
