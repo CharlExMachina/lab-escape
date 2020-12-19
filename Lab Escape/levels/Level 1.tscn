@@ -823,7 +823,7 @@ position = Vector2( 2032.32, 431.578 )
 position = Vector2( 2032.32, -1105.69 )
 
 [node name="Player" parent="." index="2"]
-position = Vector2( 951.843, -188.554 )
+position = Vector2( 2051.6, -303.924 )
 
 [node name="SecurityGuard" parent="Guards" index="0" instance=ExtResource( 2 )]
 position = Vector2( 2038.31, -52.6646 )

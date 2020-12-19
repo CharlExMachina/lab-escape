@@ -39,7 +39,10 @@ func player_in_los():
 	var distance_to_player = player.global_position.distance_to(global_position)
 
 	if los_obstacle.collider == player && distance_to_player < vision_range:
-		return true
+		if not player.is_hiding_in_box || player.motion.length() > 1:
+			return true
+		else:
+			return false
 	else:
 		return false
 
