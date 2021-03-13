@@ -116,10 +116,10 @@ func handle_use_computer() -> void:
 		var computer = $Sprite/RayCast2D.get_collider()
 		emit_signal("use_computer")
 
-func collect_document() -> void:
-	pass
-
 func collect_access_card() -> void:
+	var loot = Node.new()
+	loot.set_name("AccessCard")
+	add_child(loot)
 	get_tree().call_group("ItemDisplay", "add_access_card")
 
 func _on_try_unlock(can_perform) -> void:

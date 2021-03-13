@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://interface/ItemList.gd" type="Script" id=1]
+[ext_resource path="res://graphics/interface/glassPanel_cornerBR.png" type="Texture" id=2]
+
+[node name="CollectedItems" type="NinePatchRect"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 290.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 280, 80 )
+texture = ExtResource( 2 )
+patch_margin_left = 15
+patch_margin_top = 15
+patch_margin_right = 15
+patch_margin_bottom = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 9.0
+margin_top = 9.0
+margin_right = -9.0
+margin_bottom = -51.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemsLabel" type="Label" parent="VBoxContainer"]
+margin_right = 262.0
+margin_bottom = 14.0
+text = "Items"
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer" groups=[
+"ItemDisplay",
+]]
+margin_top = 18.0
+margin_right = 262.0
+margin_bottom = 27.0
+auto_height = true
+icon_scale = 0.3
+script = ExtResource( 1 )
